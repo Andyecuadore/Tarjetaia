@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Andrés Chamorro - AutonomIA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --primary: #10b981;
+            --secondary: #0f172a;
+            --accent: #334155;
+            --white: #ffffff;
+            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0d1117;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .card {
+            background: var(--bg-gradient);
+            width: 100%;
+            max-width: 380px;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+            color: var(--white);
+            position: relative;
+            transition: transform 0.1s ease-out;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .card::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(16, 185, 129, 0.15) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .header {
+            padding: 40px 30px 20px;
+            text-align: center;
+        }
+
+        .logo-text {
+            font-family: 'Urbanist', sans-serif;
+            font-size: 26px;
+            letter-spacing: -1px;
+            margin-bottom: 25px;
+            opacity: 0.9;
+        }
+
+        .logo-text b {
+            color: var(--primary);
+        }
+
+        .profile-container {
+            position: relative;
+            width: 130px;
+            height: 130px;
+            margin: 0 auto 20px;
+        }
+
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 3px solid var(--primary);
+            background: #1e293b;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 55px;
+            color: var(--primary);
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+        }
+
+        .status-dot {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            width: 18px;
+            height: 18px;
+            background: #22c55e;
+            border: 3px solid var(--secondary);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(34, 197, 94, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+        }
+
+        .name {
+            font-family: 'Urbanist', sans-serif;
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .title {
+            color: var(--primary);
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 2.5px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .services {
+            padding: 0 25px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        /* Servicio interactivo */
+        .service-tag {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 12px 8px;
+            border-radius: 15px;
+            font-size: 10px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .service-tag:hover {
+            background: rgba(16, 185, 129, 0.1);
+            transform: translateY(-3px);
+            border-color: var(--primary);
+        }
+
+        .service-tag i {
+            font-size: 18px;
+            color: var(--primary);
+        }
+
+        .service-tag.highlight {
+            border-color: rgba(16, 185, 129, 0.4);
+            background: rgba(16, 185, 129, 0.05);
+        }
+
+        .actions {
+            padding: 0 25px 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 18px;
+            border-radius: 18px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 15px;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-whatsapp {
+            background-color: var(--primary);
+            color: var(--secondary);
+        }
+
+        .btn-outline {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--white);
+        }
+
+        .btn-save {
+            background: var(--white);
+            color: var(--secondary);
+        }
+
+        .footer-note {
+            text-align: center;
+            font-size: 11px;
+            color: #64748b;
+            padding-bottom: 25px;
+            font-weight: 500;
+        }
+
+        #toast {
+            visibility: hidden;
+            min-width: 200px;
+            background-color: var(--primary);
+            color: var(--secondary);
+            text-align: center;
+            border-radius: 50px;
+            padding: 10px;
+            position: fixed;
+            z-index: 100;
+            bottom: 40px;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        #toast.show {
+            visibility: visible;
+            animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        }
+
+        @keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 40px; opacity: 1;} }
+        @keyframes fadeout { from {bottom: 40px; opacity: 1;} to {bottom: 0; opacity: 0;} }
+    </style>
+</head>
+<body>
+
+<div class="card" id="tiltCard">
+    <div class="header">
+        <div class="logo-text">Autonom<b>IA</b></div>
+        <div class="profile-container">
+            <div class="profile-img">
+                <i class="fa-solid fa-user-astronaut"></i>
+            </div>
+            <div class="status-dot"></div>
+        </div>
+        <h1 class="name">Andrés E. Chamorro</h1>
+        <p class="title">CEO & Arquitecto IA</p>
+    </div>
+
+    <div class="services">
+        <!-- Citas -->
+        <a href="https://wa.me/593963822102?text=Hola%20Andr%C3%A9s,%20me%20gustar%C3%ADa%20agendar%20una%20reuni%C3%B3n%20contigo." class="service-tag">
+            <i class="fa-solid fa-calendar-check"></i>
+            <span>Agendar Cita</span>
+        </a>
+
+        <!-- Visitas en Quito -->
+        <a href="https://wa.me/593963822102?text=Hola%20Andr%C3%A9s,%20estoy%20en%20Quito%20y%20me%20gustar%C3%ADa%20solicitar%20una%20visita%20t%C3%A9cnica." class="service-tag highlight">
+            <i class="fa-solid fa-location-dot"></i>
+            <span>Visita en Quito</span>
+        </a>
+
+        <!-- Agentes IA -->
+        <a href="https://wa.me/593963822102?text=Hola%20Andr%C3%A9s,%20quiero%20m%C3%A1s%20informaci%C3%B3n%20sobre%20la%20implementaci%C3%B3n%20de%20Agentes%20IA." class="service-tag">
+            <i class="fa-solid fa-brain"></i>
+            <span>Agentes IA</span>
+        </a>
+
+        <!-- Automatización -->
+        <a href="https://wa.me/593963822102?text=Hola%20Andr%C3%A9s,%20me%20interesa%20automatizar%20procesos%20en%20mi%20negocio." class="service-tag">
+            <i class="fa-solid fa-code-merge"></i>
+            <span>Automatización</span>
+        </a>
+    </div>
+
+    <div class="actions">
+        <a href="https://wa.me/593963822102?text=Hola%20Andr%C3%A9s,%20vi%20tu%20tarjeta%20y%20me%20gustar%C3%ADa%20agendar%20una%20demo%20de%20AutonomIA" class="btn btn-whatsapp">
+            <i class="fa-brands fa-whatsapp"></i> Solicitar Demo Gratis
+        </a>
+        
+        <button onclick="downloadVCard()" class="btn btn-save">
+            <i class="fa-solid fa-user-plus"></i> Guardar en Contactos
+        </button>
+
+        <div style="display: flex; gap: 10px;">
+            <a href="mailto:andyecuadore@hotmail.com?subject=Consulta%20AutonomIA" class="btn btn-outline" style="flex: 1;">
+                <i class="fa-solid fa-envelope"></i> Email
+            </a>
+            <button onclick="shareProfile()" class="btn btn-outline" style="flex: 1;">
+                <i class="fa-solid fa-share-nodes"></i> Compartir
+            </button>
+        </div>
+    </div>
+
+    <div class="footer-note">
+        Tecnología que trabaja por ti.
+    </div>
+</div>
+
+<div id="toast">¡Enlace copiado!</div>
+
+<script>
+    const card = document.getElementById('tiltCard');
+    card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = (y - centerY) / 10;
+        const rotateY = (centerX - x) / 10;
+
+        card.style.setProperty('--x', `${(x / rect.width) * 100}%`);
+        card.style.setProperty('--y', `${(y / rect.height) * 100}%`);
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    });
+
+    card.addEventListener('mouseleave', () => {
+        card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`;
+    });
+
+    async function shareProfile() {
+        if (navigator.share) {
+            try {
+                await navigator.share({
+                    title: 'Andrés Chamorro - AutonomIA',
+                    text: 'Te comparto el contacto de Andrés de AutonomIA.',
+                    url: window.location.href
+                });
+            } catch (err) { console.log(err); }
+        } else {
+            const dummy = document.createElement('input');
+            document.body.appendChild(dummy);
+            dummy.value = window.location.href;
+            dummy.select();
+            document.execCommand('copy');
+            document.body.removeChild(dummy);
+            showToast("¡Enlace copiado!");
+        }
+    }
+
+    function downloadVCard() {
+        const vcard = "BEGIN:VCARD\nVERSION:3.0\nFN:Andrés E. Chamorro\nORG:AutonomIA\nTITLE:CEO & Arquitecto IA\nTEL;TYPE=CELL:+593963822102\nEMAIL:andyecuadore@hotmail.com\nEND:VCARD";
+        const blob = new Blob([vcard], { type: "text/vcard" });
+        const url = window.URL.createObjectURL(blob);
+        const newLink = document.createElement('a');
+        newLink.href = url;
+        newLink.setAttribute('download', 'Andres_Chamorro_AutonomIA.vcf');
+        document.body.appendChild(newLink);
+        newLink.click();
+        document.body.removeChild(newLink);
+        showToast("Contacto guardado");
+    }
+
+    function showToast(msg) {
+        const toast = document.getElementById("toast");
+        toast.innerText = msg;
+        toast.className = "show";
+        setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 3000);
+    }
+</script>
+
+</body>
+</html>
